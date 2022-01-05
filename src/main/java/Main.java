@@ -1,7 +1,9 @@
-public class Main {
-
+public class Main
+{
     public static void main(String [] args)
     {
-        MainFrame.show();
+        System.out.println("Config path:" + ConfPath.spath);
+        ConfPath.ensure();
+
     }
 }
