@@ -6,4 +6,14 @@ public class Job
     public Integer day;
     public Integer hour;
     public Integer minute;
+
+    Job (Integer id, String command, Integer month,
+         Integer day, Integer hour, Integer minute) {
+        this.id      = id;
+        this.command = command;
+        this.month   = month;
+        this.day     = day;
+        this.hour    = hour;
+        this.minute  = minute;
+    }
 }
