@@ -16,8 +16,8 @@ public class DBConn
     public static Connection establishConn()
     {
         Connection conn = null;
+
         try {
-            // Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection(url);
         }
         catch ( Exception e ) {
@@ -44,6 +44,7 @@ public class DBConn
     {
          System.out.println(MessageFormat.format("Creating {0} database...", db_path));
          Connection conn = establishConn();
+
          try {
              Statement stmt = conn.createStatement();
              stmt.executeUpdate("create table jobs " +
@@ -64,7 +65,7 @@ public class DBConn
                      "exit_output  text                , " +
                      "foreign key (job_id) references jobs (id)" +
                      ");");
-             System.out.println("... database created successfully.");
+             System.out.println("... created successfully.");
          }
          catch ( Exception e ) {
              System.err.println(e.getMessage());
