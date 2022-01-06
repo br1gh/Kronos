@@ -61,7 +61,7 @@ public class DBConn
                      "id           integer primary key , " +
                      "job_id       integer not null    , " +
                      "date         text                , " +
-                     "exit_code    text                , " +
+                     "exit_code    integer             , " +
                      "exit_output  text                , " +
                      "foreign key (job_id) references jobs (id)" +
                      ");");
