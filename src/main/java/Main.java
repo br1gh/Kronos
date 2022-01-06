@@ -5,5 +5,6 @@ public class Main
         System.out.println("Config path: " + ConfPath.kronos_path_string);
         ConfPath.ensureConfPath();
 
+        DBConn.ensureDB();
     }
 }
