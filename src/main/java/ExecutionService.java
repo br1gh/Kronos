@@ -2,21 +2,20 @@ import java.sql.Connection;
 import java.sql.Statement;
 
 
-public class JobService
+public class ExecutionService
 {
-    public static void insert(Job job)
+    public void insert(Execution execution)
     {
         Connection conn = DBConn.establishConn();
         try {
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("insert into jobs" +
-                    "( command, month, day, hour, minute )" +
+            stmt.executeUpdate("insert into executions" +
+                    "( job_id, date, exit_code, exit_output )" +
                     "values (" +
-                    "\"" + job.command + "\"" + " , " +
-                    job.month   + " , " +
-                    job.day     + " , " +
-                    job.hour    + " , " +
-                    job.minute  + "   " +
+                    execution.job_id       + " , " +
+                    execution.date         + " , " +
+                    execution.exit_code    + " , " +
+                    execution.exit_output  + " , " +
                     ");");
         }
         catch ( Exception e ) {
