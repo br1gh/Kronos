@@ -42,8 +42,7 @@ public class JobService
         }
         return result;
     }
-
-    // n is the index of job we want to retrieve
+    
     public static List<Job> getAll()
     {
         List<Job> result = new LinkedList<Job>();
