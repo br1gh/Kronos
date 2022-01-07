@@ -38,7 +38,7 @@ public class JobService
             result = rs.getObject(what) == null ? null : rs.getInt(what);
         }
         catch ( Exception e ) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
         return result;
     }
