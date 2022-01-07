@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+
+
 public class Job
 {
     public Integer id;
@@ -18,6 +21,16 @@ public class Job
         this.minute  = minute;
     }
 
+    // TODO: Take LocalDateTime as param
+    public Boolean doesDateSatisfy()
+    {
+        LocalDateTime date_now = LocalDateTime.now();
+        return ( (this.month    == null || date_now.getMonthValue() == this.month)
+                && (this.day    == null || date_now.getDayOfWeek().getValue() == this.day)
+                && (this.hour   == null || date_now.getHour() == this.hour)
+                && (this.minute == null || date_now.getMinute() == this.minute) );
+    }
+
     public void display()
     {
         System.out.println("------------------------------");
@@ -29,19 +42,6 @@ public class Job
         System.out.println("  hour:     " + this.hour);
         System.out.println("  minute:   " + this.minute);
         System.out.println("------------------------------");
-    }
-
-    // CONSIDER: Do we need this?
-    public String [] toStringArray()
-    {
-        return new String[] {
-            this.id.toString(),
-            this.command,
-            this.month.toString(),
-            this.day.toString(),
-            this.hour.toString(),
-            this.minute.toString()
-        };
     }
 
 }
