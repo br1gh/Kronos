@@ -13,5 +13,8 @@ public class Main
         Job j = JobService.getAll().get(0);
         j.display();
 
+        Execution e = ExecutionService.getAll().get(0);
+        e.display();
+
     }
 }
