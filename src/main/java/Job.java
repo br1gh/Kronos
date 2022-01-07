@@ -17,4 +17,18 @@ public class Job
         this.hour    = hour;
         this.minute  = minute;
     }
+
+    public String [] toStringArray()
+    {
+        String [] arr = {
+            this.id.toString(),
+            this.command,
+            this.month.toString(),
+            this.day.toString(),
+            this.hour.toString(),
+            this.minute.toString()
+        };
+        return arr;
+    }
+
 }
