@@ -34,7 +34,7 @@ public class Job
     // CONSIDER: Do we need this?
     public String [] toStringArray()
     {
-        String [] arr = {
+        return new String[] {
             this.id.toString(),
             this.command,
             this.month.toString(),
@@ -42,7 +42,6 @@ public class Job
             this.hour.toString(),
             this.minute.toString()
         };
-        return arr;
     }
 
 }
