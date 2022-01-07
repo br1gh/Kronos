@@ -18,6 +18,20 @@ public class Job
         this.minute  = minute;
     }
 
+    public void display()
+    {
+        System.out.println("------------------------------");
+        System.out.println("  Job properties");
+        System.out.println("  id:       " + this.id);
+        System.out.println("  command:  " + this.command);
+        System.out.println("  month:    " + this.month);
+        System.out.println("  day:      " + this.day);
+        System.out.println("  hour:     " + this.hour);
+        System.out.println("  minute:   " + this.minute);
+        System.out.println("------------------------------");
+    }
+
+    // CONSIDER: Do we need this?
     public String [] toStringArray()
     {
         String [] arr = {

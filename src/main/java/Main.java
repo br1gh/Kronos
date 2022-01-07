@@ -1,6 +1,3 @@
-import java.util.List;
-
-
 public class Main
 {
     public static void main(String [] args)
@@ -14,7 +11,7 @@ public class Main
         // JobService.insert(j);
 
         Job j = JobService.getAll().get(0);
-        System.out.println(j.command + j.month + j.day);
+        j.display();
 
     }
 }
