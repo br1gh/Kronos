@@ -10,11 +10,13 @@ public class Main
         //         null, null, null, 30);
         // JobService.insert(j);
 
-        Job j = JobService.getAll().get(0);
-        j.display();
+        for ( Job j : JobService.getAll() ) {
+            j.display();
+        }
 
-        Execution e = ExecutionService.getAll().get(0);
-        e.display();
+        for ( Execution e : ExecutionService.getAll() ) {
+            e.display();
+        }
 
     }
 }
