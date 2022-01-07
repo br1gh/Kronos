@@ -42,10 +42,10 @@ public class JobService
         }
         return result;
     }
-    
+
     public static List<Job> getAll()
     {
-        List<Job> result = new LinkedList<Job>();
+        List<Job> result = new LinkedList<>();
         Connection conn = DBConn.establishConn();
 
         try {
