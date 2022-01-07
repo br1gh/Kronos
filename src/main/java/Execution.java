@@ -15,4 +15,17 @@ public class Execution
         this.exit_code    = exit_code;
         this.exit_output  = exit_output;
     }
+
+    public void display()
+    {
+        System.out.println("------------------------------");
+        System.out.println("  Execution properties");
+        System.out.println("  id:       " + this.id);
+        System.out.println("  command:  " + this.job_id);
+        System.out.println("  month:    " + this.date);
+        System.out.println("  day:      " + this.exit_code);
+        System.out.println("  hour:     " + this.exit_output);
+        System.out.println("------------------------------");
+    }
+
 }
