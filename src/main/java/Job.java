@@ -8,7 +8,8 @@ public class Job
     public Integer minute;
 
     Job (Integer id, String command, Integer month,
-         Integer day, Integer hour, Integer minute) {
+         Integer day, Integer hour, Integer minute)
+    {
         this.id      = id;
         this.command = command;
         this.month   = month;
