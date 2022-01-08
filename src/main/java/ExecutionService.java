@@ -15,10 +15,10 @@ public class ExecutionService
             stmt.executeUpdate("insert into executions" +
                     "( job_id, date, exit_code, exit_output )" +
                     "values (" +
-                    execution.job_id              + "   , " +
-                    "\"" + execution.date         + "\" , " +
-                    execution.exit_code           + "   , " +
-                    "\"" + execution.exit_output  + "\"   " +
+                    execution.job_id             + "  , " +
+                    "'" + execution.date         + "' , " +
+                    execution.exit_code          + "  , " +
+                    "'" + execution.exit_output  + "'   " +
                     ");");
         }
         catch ( Exception e ) {
