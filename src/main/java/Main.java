@@ -21,7 +21,7 @@ public class Main
         */
 
         // "tick" every minute
-        // creates new executor and checks if any fob can run
+        // creates new executor and checks if any job can run
         while ( true ) {
             Executor executor = new Executor();
             executor.doExec();
