@@ -15,11 +15,11 @@ public class JobService
             stmt.executeUpdate("insert into jobs" +
                     "( command, month, day, hour, minute )" +
                     "values (" +
-                    "\"" + job.command + "\"" + " , " +
-                    job.month   + " , " +
-                    job.day     + " , " +
-                    job.hour    + " , " +
-                    job.minute  + "   " +
+                    "'" + job.command + "' , " +
+                    job.month         + "  , " +
+                    job.day           + "  , " +
+                    job.hour          + "  , " +
+                    job.minute        + "    " +
                     ");");
         }
         catch ( Exception e ) {
