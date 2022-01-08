@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+
 public class Main
 {
     public static void main(String [] args)
@@ -18,7 +22,6 @@ public class Main
         for ( Execution e : ExecutionService.getAll() ) {
             e.display();
         }
-        */
 
         // "tick" every minute
         // creates new executor and checks if any job can run
@@ -35,6 +38,18 @@ public class Main
                 System.exit(1);
             }
         }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String d = LocalDateTime.now().format(formatter);
+        //String d = "0001";
+        System.out.println(d);
+
+        ExecutionService.insert(new Execution(0, 1,
+                d, 0, ""));
+        */
+
+        
+        Executor.jobExec(JobService.getAll().get(0));
 
     }
 }
