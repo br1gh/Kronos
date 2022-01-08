@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ExecutionService
 {
-    public void insert(Execution execution)
+    public static void insert(Execution execution)
     {
         Connection conn = DBConn.establishConn();
         try {
