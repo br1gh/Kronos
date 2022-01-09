@@ -16,4 +16,12 @@ public class JobTest
         assertTrue(j.doesDateSatisfy(LocalDateTime.now()));
     }
 
+    @Test
+    @DisplayName("dateExact")
+    public void dateExact()
+    {
+        Job j = new Job(0, "", 1, 1, 6, 1, 1);
+        assertTrue(j.doesDateSatisfy(LocalDateTime.of(2022, 1, 1, 1, 1)));
+    }
+
 }
