@@ -17,7 +17,7 @@ public class JobService
                     "values (" +
                     "'" + job.command + "' , " +
                     job.month         + "  , " +
-                    job.day           + "  , " +
+                    job.wday          + "  , " +
                     job.hour          + "  , " +
                     job.minute        + "    " +
                     ");");
