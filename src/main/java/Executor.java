@@ -37,7 +37,7 @@ public class Executor
     public static void tryExecAll(List<Job> jobs)
     {
         for ( Job job : jobs ) {
-            if ( job.doesDateSatisfy() ) {
+            if ( job.doesDateSatisfy(LocalDateTime.now()) ) {
                 jobExec(job);
             }
         }

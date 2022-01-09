@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -11,7 +13,7 @@ public class JobTest
     public void dateAllNull()
     {
         Job j = new Job(0, "", null, null, null, null, null);
-        assertTrue(j.doesDateSatisfy());
+        assertTrue(j.doesDateSatisfy(LocalDateTime.now()));
     }
 
 }

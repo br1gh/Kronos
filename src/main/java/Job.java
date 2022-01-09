@@ -23,15 +23,13 @@ public class Job
         this.minute  = minute;
     }
 
-    // TODO: Take LocalDateTime as param
-    public Boolean doesDateSatisfy()
+    public Boolean doesDateSatisfy(LocalDateTime ldt)
     {
-        LocalDateTime date_now = LocalDateTime.now();
-        return ( (this.month    == null || date_now.getMonthValue() == this.month)
-                && (this.m_day  == null || date_now.getDayOfMonth() == this.m_day)
-                && (this.w_day  == null || date_now.getDayOfWeek().getValue() == this.w_day)
-                && (this.hour   == null || date_now.getHour() == this.hour)
-                && (this.minute == null || date_now.getMinute() == this.minute) );
+        return ( (this.month    == null || ldt.getMonthValue() == this.month)
+                && (this.m_day  == null || ldt.getDayOfMonth() == this.m_day)
+                && (this.w_day  == null || ldt.getDayOfWeek().getValue() == this.w_day)
+                && (this.hour   == null || ldt.getHour() == this.hour)
+                && (this.minute == null || ldt.getMinute() == this.minute) );
     }
 
     public void display()
