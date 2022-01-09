@@ -21,9 +21,3 @@ DB placed in:
 - `slmngr /rearm`
 - show rock-face gif
 - system shutdown
-
-
-# Errors
-
-- creates DB when ran from Idea, fails when run from a jar created by `mvn`.
-  > No suitable driver found for jdbc:sqlite:/home/xy/.config/kronos/db.sqlite
