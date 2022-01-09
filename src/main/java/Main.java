@@ -6,5 +6,8 @@ public class Main
         ConfPath.ensureConfPath();
         DBConn.ensureDB();
 
+        Thread gui_thread = new Thread(MainFrame::show);
+        gui_thread.start();
+
     }
 }
