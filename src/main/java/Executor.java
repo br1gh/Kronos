@@ -20,7 +20,7 @@ public class Executor
             StringBuilder p_exit_output = new StringBuilder();
 
             while ( p_line != null ) {
-                p_exit_output.append(p_line);
+                p_exit_output.append(p_line).append("\n");
                 p_line = buf.readLine();
             }
 
