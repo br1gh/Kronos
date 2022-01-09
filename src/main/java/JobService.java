@@ -13,11 +13,12 @@ public class JobService
         try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("insert into jobs" +
-                    "( command, month, day, hour, minute )" +
+                    "( command, month, m_day, w_day, hour, minute )" +
                     "values (" +
                     "'" + job.command + "' , " +
                     job.month         + "  , " +
-                    job.wday          + "  , " +
+                    job.m_day         + "  , " +
+                    job.w_day         + "  , " +
                     job.hour          + "  , " +
                     job.minute        + "    " +
                     ");");
@@ -56,10 +57,11 @@ public class JobService
                 Integer id       = rs.getInt("id");
                 String  command  = rs.getString("command");
                 Integer month    = resultGetNInt(rs, "month");
-                Integer day      = resultGetNInt(rs, "day");
+                Integer m_day    = resultGetNInt(rs, "m_day");
+                Integer w_day    = resultGetNInt(rs, "w_day");
                 Integer hour     = resultGetNInt(rs, "hour");
                 Integer minute   = resultGetNInt(rs, "minute");
-                result.add(new Job(id, command, month, day, hour, minute));
+                result.add(new Job(id, command, month, m_day, w_day, hour, minute));
             }
         }
         catch ( Exception e ) {

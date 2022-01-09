@@ -10,7 +10,7 @@ public class JobTest
     @DisplayName("dateAllNull")
     public void dateAllNull()
     {
-        Job j = new Job(0, "", null, null, null, null);
+        Job j = new Job(0, "", null, null, null, null, null);
         assertTrue(j.doesDateSatisfy());
     }
 

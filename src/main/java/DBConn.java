@@ -52,7 +52,8 @@ public class DBConn
                      "id           integer primary key , " +
                      "command      text not null       , " +
                      "month        integer             , " +
-                     "day          integer             , " +
+                     "m_day        integer             , " +
+                     "w_day        integer             , " +
                      "hour         integer             , " +
                      "minute       integer               " +
                      ");");
