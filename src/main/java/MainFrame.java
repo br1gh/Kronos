@@ -14,9 +14,14 @@ public class MainFrame
 
     public static void show()
     {
+        Color tabs_bg = new Color(60, 63, 65);
+        Color bg = new Color(43, 43, 43);
+        Color text_bg = new Color(49, 51, 53);
+
         JFrame main_frame = new JFrame("Kronos");
         main_frame.setSize(500, 500);
         main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        main_frame.getContentPane().setBackground(tabs_bg);
 
         JTabbedPane main_tabbed_pane = new JTabbedPane();
         main_frame.getContentPane().add(main_tabbed_pane);
@@ -25,6 +30,7 @@ public class MainFrame
         // Add a Job
 
         JPanel add_panel = new JPanel();
+        add_panel.setBackground(text_bg);
         add_panel.setLayout(new GridLayout(6, 2));
         main_tabbed_pane.add("Add", add_panel);
 
