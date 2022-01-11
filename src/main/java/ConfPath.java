@@ -4,7 +4,8 @@ import java.text.MessageFormat;
 public class ConfPath
 {
     public static String kronos_path_string =
-            MessageFormat.format("{0}/.config/kronos", System.getenv("HOME"));
+            MessageFormat.format("{0}/.config/kronos", System.getProperty("os.name").startsWith("Windows") ?
+                    System.getenv("APPDATA") : System.getenv("HOME"));
 
 
     public static String prefix(String string_path)
