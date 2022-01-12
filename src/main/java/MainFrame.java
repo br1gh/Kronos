@@ -29,40 +29,39 @@ public class MainFrame
         main_tabbed_pane.setForeground(font_color);
         main_frame.getContentPane().add(main_tabbed_pane);
 
-
         // Add a Job
 
         JPanel add_panel = new JPanel();
         add_panel.setBackground(text_bg);
-        add_panel.setLayout(new GridLayout(6, 2));
+        add_panel.setLayout(new GridLayout(7, 2));
         main_tabbed_pane.add("Add", add_panel);
 
         add_panel.add(new MainFrameText("Command: "));
         JTextField command_panel_field = new JTextField("echo works");
         command_panel_field.setForeground(font_color);
-        command_panel_field.setBackground(bg);
+        command_panel_field.setBackground(Color.BLACK);
         add_panel.add(command_panel_field);
 
         add_panel.add(new MainFrameText("Month: "));
-        JComboBox month_panel_field = new JComboBox(make_list(1, 12));
+        JComboBox month_panel_field = new MainFrameComboBox(make_list(1, 12));
         add_panel.add(month_panel_field);
 
         add_panel.add(new MainFrameText("Month Day: "));
-        JComboBox m_day_panel_field = new JComboBox(make_list(1, 31));
+        JComboBox m_day_panel_field = new MainFrameComboBox(make_list(1, 31));
         add_panel.add(m_day_panel_field);
 
         add_panel.add(new MainFrameText("Week Day: "));
-        JComboBox w_day_panel_field = new JComboBox(make_list(1, 7));
+        JComboBox w_day_panel_field = new MainFrameComboBox(make_list(1, 7));
         add_panel.add(w_day_panel_field);
 
         add_panel.add(new MainFrameText("Hour: "));
-        JComboBox hour_panel_field = new JComboBox(make_list(0, 23));
+        JComboBox hour_panel_field = new MainFrameComboBox(make_list(0, 23));
         add_panel.add(hour_panel_field);
 
         add_panel.add(new MainFrameText("Minute: "));
-        JComboBox minute_panel_field = new JComboBox(make_list(0, 59));
-        add_panel.add(minute_panel_field);
+        JComboBox minute_panel_field = new MainFrameComboBox(make_list(0, 59));
 
+        add_panel.add(minute_panel_field);
 
         // All Jobs
 
@@ -70,19 +69,20 @@ public class MainFrame
         all_panel.setBackground(text_bg);
         main_tabbed_pane.add("All", all_panel);
 
-
         // Executed jobs
 
         JPanel executed_panel = new JPanel();
         executed_panel.setBackground(text_bg);
         main_tabbed_pane.add("Executed", executed_panel);
 
+        MainFrameButton button1 = new MainFrameButton("Reset",new Color(199,84,80));
+        add_panel.add(button1);
+        button1.addActionListener(new ButtonPress());
 
-        // JButton button = new JButton("Button");
-        // add_panel.add(button);
-        // button.addActionListener(new ButtonPress());
+        MainFrameButton button2 = new MainFrameButton("Save",new Color(88,143,70));
+        add_panel.add(button2);
+        button2.addActionListener(new ButtonPress());
 
         main_frame.setVisible(true);
     }
-
 }
