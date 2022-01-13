@@ -7,8 +7,22 @@ public class MainFrame
 {
     private static String [] make_list(int start, int stop)
     {
-        return IntStream.range(start, stop + 1)
-                .mapToObj(String::valueOf).toArray(String[]::new);
+        String [] ret = new String [stop - start + 2];
+        ret[0] = "*ANY*";
+
+        int c = 1;
+        for ( Integer i : IntStream.range(start, stop + 1).toArray() ) {
+            ret [c] = String.valueOf(i);
+            c++;
+        }
+        return ret;
+    }
+
+    // Object -> String -> Integer
+    private static Integer toDBInt(Object o)
+    {
+        String s = o.toString();
+        return s.equals("*ANY*") ? null : Integer.valueOf(s);
     }
 
     public static void show()
@@ -66,12 +80,28 @@ public class MainFrame
         MainFrameButton reset_button_add_panel =
             new MainFrameButton("Reset",new Color(199,84,80));
         add_panel.add(reset_button_add_panel);
-        reset_button_add_panel.addActionListener(new ButtonPress());
+        reset_button_add_panel.addActionListener((aE) -> {
+            command_panel_field.setText("echo works");
+            month_panel_field.setSelectedIndex(0);
+            m_day_panel_field.setSelectedIndex(0);
+            w_day_panel_field.setSelectedIndex(0);
+            hour_panel_field.setSelectedIndex(0);
+            minute_panel_field.setSelectedIndex(0);
+        });
 
         MainFrameButton save_button_add_panel =
             new MainFrameButton("Save",new Color(88,143,70));
         add_panel.add(save_button_add_panel);
-        save_button_add_panel.addActionListener(new ButtonPress());
+        save_button_add_panel.addActionListener((aE) -> {
+            Job j = new Job(0, command_panel_field.getText(),
+                    toDBInt(month_panel_field.getSelectedItem()),
+                    toDBInt(m_day_panel_field.getSelectedItem()),
+                    toDBInt(w_day_panel_field.getSelectedItem()),
+                    toDBInt(hour_panel_field.getSelectedItem()),
+                    toDBInt(minute_panel_field.getSelectedItem()));
+            j.display();
+            JobService.insert(j);
+        });
 
 
         // All Jobs
