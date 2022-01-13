@@ -63,15 +63,15 @@ public class MainFrame
         JComboBox minute_panel_field = new MainFrameComboBox(make_list(0, 59));
         add_panel.add(minute_panel_field);
 
-        MainFrameButton reset_buttony_add_panel =
+        MainFrameButton reset_button_add_panel =
             new MainFrameButton("Reset",new Color(199,84,80));
-        add_panel.add(reset_buttony_add_panel);
-        reset_buttony_add_panel.addActionListener(new ButtonPress());
+        add_panel.add(reset_button_add_panel);
+        reset_button_add_panel.addActionListener(new ButtonPress());
 
-        MainFrameButton save_buttony_add_panel =
+        MainFrameButton save_button_add_panel =
             new MainFrameButton("Save",new Color(88,143,70));
-        add_panel.add(save_buttony_add_panel);
-        save_buttony_add_panel.addActionListener(new ButtonPress());
+        add_panel.add(save_button_add_panel);
+        save_button_add_panel.addActionListener(new ButtonPress());
 
 
         // All Jobs
