@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.Arrays;
 import java.util.stream.IntStream;
 import javax.swing.*;
 
@@ -19,6 +18,7 @@ public class MainFrame
         Color text_bg = new Color(49, 51, 53);
         Color font_color = new Color(168,182,191);
 
+
         JFrame main_frame = new JFrame("Kronos");
         main_frame.setSize(500, 500);
         main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,6 +28,7 @@ public class MainFrame
         main_tabbed_pane.setBackground(bg);
         main_tabbed_pane.setForeground(font_color);
         main_frame.getContentPane().add(main_tabbed_pane);
+
 
         // Add a Job
 
@@ -60,8 +61,18 @@ public class MainFrame
 
         add_panel.add(new MainFrameText("Minute: "));
         JComboBox minute_panel_field = new MainFrameComboBox(make_list(0, 59));
-
         add_panel.add(minute_panel_field);
+
+        MainFrameButton reset_buttony_add_panel =
+            new MainFrameButton("Reset",new Color(199,84,80));
+        add_panel.add(reset_buttony_add_panel);
+        reset_buttony_add_panel.addActionListener(new ButtonPress());
+
+        MainFrameButton save_buttony_add_panel =
+            new MainFrameButton("Save",new Color(88,143,70));
+        add_panel.add(save_buttony_add_panel);
+        save_buttony_add_panel.addActionListener(new ButtonPress());
+
 
         // All Jobs
 
@@ -69,19 +80,13 @@ public class MainFrame
         all_panel.setBackground(text_bg);
         main_tabbed_pane.add("All", all_panel);
 
+
         // Executed jobs
 
         JPanel executed_panel = new JPanel();
         executed_panel.setBackground(text_bg);
         main_tabbed_pane.add("Executed", executed_panel);
 
-        MainFrameButton button1 = new MainFrameButton("Reset",new Color(199,84,80));
-        add_panel.add(button1);
-        button1.addActionListener(new ButtonPress());
-
-        MainFrameButton button2 = new MainFrameButton("Save",new Color(88,143,70));
-        add_panel.add(button2);
-        button2.addActionListener(new ButtonPress());
 
         main_frame.setVisible(true);
     }
