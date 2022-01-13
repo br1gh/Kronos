@@ -34,7 +34,7 @@ public class MainFrame
 
 
         JFrame main_frame = new JFrame("Kronos");
-        main_frame.setSize(500, 500);
+        main_frame.setSize(550, 500);
         main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         main_frame.getContentPane().setBackground(tabs_bg);
 
@@ -110,14 +110,43 @@ public class MainFrame
         all_panel.setBackground(text_bg);
         main_tabbed_pane.add("All", all_panel);
 
+        String[][] data = new String[JobService.getAll().size()][7];
+
+        int i = 0;
+        for (Job j: JobService.getAll())
+        {
+            data[i] = new String[]
+                    {
+                    (j.id == null ? "Any":j.id.toString()),
+                    j.command,
+                    (j.month == null ? "Any":j.month.toString()),
+                    (j.m_day == null ? "Any":j.m_day.toString()),
+                    (j.w_day == null ? "Any":j.w_day.toString()),
+                    (j.hour == null ? "Any":j.hour.toString()),
+                    (j.minute == null ? "Any":j.minute.toString())
+                    };
+            i++;
+        }
+
+        String[] columnNames = {"Id", "Command", "Month", "Month Day", "Week Day", "Hour", "Minute"};
+
+        JTable table = new JTable(data, columnNames);
+        table.setBounds(0,0,500,500);
+        table.setPreferredScrollableViewportSize(table.getPreferredSize());
+        table.setBackground(bg);
+        table.setForeground(font_color);
+
+        JScrollPane scroll_pane = new JScrollPane(table);
+        scroll_pane.getViewport().setBackground(tabs_bg);
+
+        all_panel.add(scroll_pane);
+
 
         // Executed jobs
 
         JPanel executed_panel = new JPanel();
         executed_panel.setBackground(text_bg);
         main_tabbed_pane.add("Executed", executed_panel);
-
-
         main_frame.setVisible(true);
     }
 }
