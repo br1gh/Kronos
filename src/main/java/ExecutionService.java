@@ -24,6 +24,9 @@ public class ExecutionService
                     execution.exit_code          + "  , " +
                     "'" + execution.exit_output  + "'   " +
                     ");");
+            System.out.println("------------------------------");
+            System.out.println("Added new execution");
+            execution.display();
         }
         catch ( Exception e ) {
              System.err.println(e.getMessage());
