@@ -16,6 +16,9 @@ public class Execution
         this.exit_output  = exit_output;
     }
 
+    /**
+     * Display a {@link Execution} object to standard out.
+     */
     public void display()
     {
         System.out.println("------------------------------");
