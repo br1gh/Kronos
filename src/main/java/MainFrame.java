@@ -110,12 +110,12 @@ public class MainFrame
         all_panel.setBackground(text_bg);
         main_tabbed_pane.add("All", all_panel);
 
-        String[][] data = new String[JobService.getAll().size()][7];
+        String[][] data_all = new String[JobService.getAll().size()][7];
 
         int i = 0;
         for (Job j: JobService.getAll())
         {
-            data[i] = new String[]
+            data_all[i] = new String[]
                     {
                     (j.id == null ? "Any":j.id.toString()),
                     j.command,
@@ -128,24 +128,24 @@ public class MainFrame
             i++;
         }
 
-        String[] columnNames = {"Id", "Command", "Month", "Month Day", "Week Day", "Hour", "Minute"};
+        String[] column_names_all = {"Id", "Command", "Month", "Month Day", "Week Day", "Hour", "Minute"};
 
-        JTable table = new JTable(data, columnNames);
-        table.setBounds(0,0,500,500);
-        table.setPreferredScrollableViewportSize(table.getPreferredSize());
-        table.setBackground(bg);
-        table.setForeground(font_color);
+        JTable table_all = new JTable(data_all, column_names_all);
+        table_all.setBounds(0,0,500,500);
+        table_all.setPreferredScrollableViewportSize(table_all.getPreferredSize());
+        table_all.setBackground(bg);
+        table_all.setForeground(font_color);
 
-        JScrollPane scroll_pane = new JScrollPane(table);
+        JScrollPane scroll_pane = new JScrollPane(table_all);
         scroll_pane.getViewport().setBackground(tabs_bg);
 
         all_panel.add(scroll_pane);
 
-
         // Executed jobs
-
-        for ( String [] executed : JobService.getExecuted() ) {
-            for ( String cell : executed ) {
+        for ( String [] executed : JobService.getExecuted() )
+        {
+            for ( String cell : executed )
+            {
                 System.out.print(cell + " ");
             }
             System.out.println();
