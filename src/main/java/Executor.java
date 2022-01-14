@@ -6,6 +6,12 @@ import java.util.List;
 
 public class Executor
 {
+    /**
+     * Executes command of a given {@link Job}.
+     * Also, updates Kronos database's executions table with
+     * a {@link Execution} object.
+     * @param  job  job from which a command should be used
+     */
     public static void jobExec(Job job)
     {
         System.out.println("Executing: " + job.command);
@@ -15,7 +21,7 @@ public class Executor
             p.waitFor();
 
             BufferedReader buf =
-                    new BufferedReader(new InputStreamReader(p.getInputStream()));
+                new BufferedReader(new InputStreamReader(p.getInputStream()));
             String p_line = "";
             StringBuilder p_exit_output = new StringBuilder();
 
@@ -25,8 +31,10 @@ public class Executor
             }
 
             String date = LocalDateTime.now().toString();
-            Execution execution = new Execution(0, job.id, date,
-                    p.exitValue(), p_exit_output.toString());
+            Execution execution =
+                new Execution(0, job.id, date,
+                              p.exitValue(),
+                              p_exit_output.toString());
             ExecutionService.insert(execution);
         }
         catch ( Exception e ) {
@@ -34,10 +42,16 @@ public class Executor
         }
     }
 
+    /**
+     * For each of given jobs checks if current {@link LocalDateTime} satisfies
+     * the time requirements, if it does jobExec is called on that job.
+     * @param  jobs  list of {@link Job}s
+     */
     public static void tryExecAll(List<Job> jobs)
     {
+        LocalDateTime time_now = LocalDateTime.now();
         for ( Job job : jobs ) {
-            if ( job.doesDateSatisfy(LocalDateTime.now()) ) {
+            if ( job.doesDateSatisfy(time_now) ) {
                 jobExec(job);
             }
         }
