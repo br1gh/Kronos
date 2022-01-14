@@ -12,7 +12,10 @@ public class DBConn
     public static String url =
         MessageFormat.format("jdbc:sqlite:{0}", db_path);
 
-
+    /**
+     * Create a connection to Kornos database.
+     * @return  connection to the database
+     */
     public static Connection establishConn()
     {
         Connection conn = null;
@@ -27,6 +30,10 @@ public class DBConn
         return conn;
     }
 
+    /**
+     * Close the connection.
+     * @param  conn
+     */
     public static void closeConn(Connection conn)
     {
         try {
@@ -40,6 +47,9 @@ public class DBConn
         }
     }
 
+    /**
+     * Initialize the Kornos database.
+     */
     public static void createDB()
     {
          System.out.println(MessageFormat.format("Creating {0} database...", db_path));
@@ -76,6 +86,9 @@ public class DBConn
          }
     }
 
+    /**
+     * Create the Kronos databse if it does not exists.
+     */
     public static void ensureDB()
     {
         if ( ! PathHelpers.exists(db_path) ) {
