@@ -87,30 +87,27 @@ public class JobService
         return result;
     }
 
-    public static String[][] getExecuted()
+    /**
+     * Joins jobs with executions.
+     * @return  list of executions along with {@link Job} command
+     */
+    public static List<String[]> getExecuted()
     {
-        String [][] result = new String[100][5];
+        List<String[]> result = new LinkedList<>();
         Connection conn = DBConn.establishConn();
 
         try {
             Statement stmt = conn.createStatement();
-            String query = "SELECT job_id,command,date,exit_code,exit_output " +
+            String query = "SELECT command, date, exit_code, exit_output " +
                     "FROM executions INNER JOIN jobs ON executions.job_id = jobs.id";
-            //String count_executed = "SELECT COUNT(id) FROM executions";
-
             ResultSet rs = stmt.executeQuery(query);
-            //ResultSet rs1 = stmt.executeQuery(count_executed);
 
-            int i = 0;
             while ( rs.next() ) {
-                String job_id       = rs.getString("job_id").toString();
                 String command      = rs.getString("command");
                 String date         = rs.getString("date");
                 String exit_code    = resultGetNInt(rs, "exit_code").toString();
                 String exit_output  = rs.getString("exit_output");
-
-                result[i] = new String[]{job_id, command, date, exit_code, exit_output};
-                i++;
+                result.add(new String [] {command, date, exit_code, exit_output});
             }
         }
         catch ( Exception e ) {

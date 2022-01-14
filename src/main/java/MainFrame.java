@@ -144,10 +144,9 @@ public class MainFrame
 
         // Executed jobs
 
-        for (String [] a: JobService.getExecuted())
-        {
-            for (String b:a) {
-                System.out.print(b + " ");
+        for ( String [] executed : JobService.getExecuted() ) {
+            for ( String cell : executed ) {
+                System.out.print(cell + " ");
             }
             System.out.println();
         }
