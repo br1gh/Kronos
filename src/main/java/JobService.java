@@ -87,4 +87,40 @@ public class JobService
         return result;
     }
 
+    public static String[][] getExecuted()
+    {
+        String [][] result = new String[100][5];
+        Connection conn = DBConn.establishConn();
+
+        try {
+            Statement stmt = conn.createStatement();
+            String query = "SELECT job_id,command,date,exit_code,exit_output " +
+                    "FROM executions INNER JOIN jobs ON executions.job_id = jobs.id";
+            //String count_executed = "SELECT COUNT(id) FROM executions";
+
+            ResultSet rs = stmt.executeQuery(query);
+            //ResultSet rs1 = stmt.executeQuery(count_executed);
+
+            int i = 0;
+            while ( rs.next() ) {
+                String job_id       = rs.getString("job_id").toString();
+                String command      = rs.getString("command");
+                String date         = rs.getString("date");
+                String exit_code    = resultGetNInt(rs, "exit_code").toString();
+                String exit_output  = rs.getString("exit_output");
+
+                result[i] = new String[]{job_id, command, date, exit_code, exit_output};
+                i++;
+            }
+        }
+        catch ( Exception e ) {
+            System.err.println(e.getMessage());
+        }
+        finally {
+            DBConn.closeConn(conn);
+        }
+
+        return result;
+    }
+
 }

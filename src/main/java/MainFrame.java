@@ -144,6 +144,14 @@ public class MainFrame
 
         // Executed jobs
 
+        for (String [] a: JobService.getExecuted())
+        {
+            for (String b:a) {
+                System.out.print(b + " ");
+            }
+            System.out.println();
+        }
+
         JPanel executed_panel = new JPanel();
         executed_panel.setBackground(text_bg);
         main_tabbed_pane.add("Executed", executed_panel);
