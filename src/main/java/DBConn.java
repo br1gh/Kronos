@@ -32,7 +32,7 @@ public class DBConn
 
     /**
      * Close the connection.
-     * @param  conn
+     * @param  conn  connection to close
      */
     public static void closeConn(Connection conn)
     {
