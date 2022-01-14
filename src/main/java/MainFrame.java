@@ -99,7 +99,6 @@ public class MainFrame
                     toDBInt(w_day_panel_field.getSelectedItem()),
                     toDBInt(hour_panel_field.getSelectedItem()),
                     toDBInt(minute_panel_field.getSelectedItem()));
-            j.display();
             JobService.insert(j);
         });
 
