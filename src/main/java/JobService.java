@@ -26,6 +26,9 @@ public class JobService
                     job.hour          + "  , " +
                     job.minute        + "    " +
                     ");");
+            System.out.println("------------------------------");
+            System.out.println("Added new job");
+            job.display();
         }
         catch ( Exception e ) {
              System.err.println(e.getMessage());
