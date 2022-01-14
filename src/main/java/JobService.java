@@ -7,6 +7,10 @@ import java.util.List;
 
 public class JobService
 {
+    /**
+     * Insert new record into executions table.
+     * @param  job  {@link Job} object to be inserted
+     */
     public static void insert(Job job)
     {
         Connection conn = DBConn.establishConn();
@@ -44,6 +48,10 @@ public class JobService
         return result;
     }
 
+    /**
+     * Get all execution records from Kronos database.
+     * @return  list of {@link Job} objects
+     */
     public static List<Job> getAll()
     {
         List<Job> result = new LinkedList<>();
