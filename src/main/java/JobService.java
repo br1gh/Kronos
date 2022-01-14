@@ -35,7 +35,12 @@ public class JobService
         }
     }
 
-    // hack to get nullable integer from RS
+    /**
+     * Get nullable integer from {@link ResultSet}.
+     * @param  rs  {@link ResultSet} from which result will e extracted
+     * @param  what  index if wanted {@link Integer}
+     * @return  nullable {@link Integer}
+     */
     private static Integer resultGetNInt(ResultSet rs, String what)
     {
         Integer result = null;
