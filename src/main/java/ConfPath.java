@@ -9,7 +9,7 @@ public class ConfPath
 
 
     /**
-     * Creates a strign prefixed with kronos_path_string.
+     * Creates a string prefixed with kronos_path_string.
      * @param  string_path  file inside kronos_path_string
      * @return  string prefixed with kronos_path_string
      */
