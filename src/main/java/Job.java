@@ -23,6 +23,13 @@ public class Job
         this.minute  = minute;
     }
 
+    /**
+     * Check if {@link Job} object's date is satisfied,
+     * that is - try to match a given {@link LocalDateTime}
+     * to object's month, m_day, w_day, hour and minute.
+     * @param  ldt  {@link LocalDateTime} to be used
+     * @return  {@link Boolean} describing whether condition is satisfied
+     */
     public Boolean doesDateSatisfy(LocalDateTime ldt)
     {
         return ( (this.month    == null || ldt.getMonthValue() == this.month)
@@ -32,6 +39,9 @@ public class Job
                 && (this.minute == null || ldt.getMinute() == this.minute) );
     }
 
+    /**
+     * Display a {@link Job} object to standard out.
+     */
     public void display()
     {
         System.out.println("------------------------------");
