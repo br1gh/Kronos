@@ -142,18 +142,28 @@ public class MainFrame
         all_panel.add(scroll_pane);
 
         // Executed jobs
-        for ( String [] executed : JobService.getExecuted() )
-        {
-            for ( String cell : executed )
-            {
-                System.out.print(cell + " ");
-            }
-            System.out.println();
-        }
 
         JPanel executed_panel = new JPanel();
         executed_panel.setBackground(text_bg);
         main_tabbed_pane.add("Executed", executed_panel);
+
+        String[][] data_executed = new String[JobService.getExecuted().size()][6];
+
+        String[] column_names_executed = {"Id", "Job Id","Command", "Date", "Exit Code", "Exit Output"};
+
+        JTable table_executed =
+                new JTable(JobService.getExecuted().toArray(data_executed), column_names_executed);
+
+        table_executed.setBounds(0,0,500,500);
+        table_executed.setPreferredScrollableViewportSize(table_executed.getPreferredSize());
+        table_executed.setBackground(bg);
+        table_executed.setForeground(font_color);
+
+        JScrollPane scroll_pane_executed = new JScrollPane(table_executed);
+        scroll_pane_executed.getViewport().setBackground(tabs_bg);
+
+        executed_panel.add(scroll_pane_executed);
+
         main_frame.setVisible(true);
     }
 }

@@ -24,7 +24,7 @@ public class Execution
         System.out.println("------------------------------");
         System.out.println("  Execution properties");
         System.out.println("  id:           " + this.id);
-        System.out.println("  command:      " + this.job_id);
+        System.out.println("  job id:       " + this.job_id);
         System.out.println("  date:         " + this.date);
         System.out.println("  exit code:    " + this.exit_code);
         System.out.println("  exit output:  " + this.exit_output);

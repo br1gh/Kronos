@@ -101,16 +101,18 @@ public class JobService
 
         try {
             Statement stmt = conn.createStatement();
-            String query = "SELECT command, date, exit_code, exit_output " +
+            String query = "SELECT executions.id, job_id,command, date, exit_code, exit_output " +
                     "FROM executions INNER JOIN jobs ON executions.job_id = jobs.id";
             ResultSet rs = stmt.executeQuery(query);
 
             while ( rs.next() ) {
+                String id           = resultGetNInt(rs, "id").toString();
+                String job_id       = resultGetNInt(rs, "job_id").toString();
                 String command      = rs.getString("command");
                 String date         = rs.getString("date");
                 String exit_code    = resultGetNInt(rs, "exit_code").toString();
                 String exit_output  = rs.getString("exit_output");
-                result.add(new String [] {command, date, exit_code, exit_output});
+                result.add(new String [] {id, job_id, command, date, exit_code, exit_output});
             }
         }
         catch ( Exception e ) {
