@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.net.URL;
 import java.util.Objects;
 import java.util.stream.IntStream;
 import javax.swing.*;
