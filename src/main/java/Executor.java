@@ -16,8 +16,14 @@ public class Executor
     {
         System.out.println("Executing: " + job.command);
         try {
-            Runtime r = Runtime.getRuntime();
-            Process p = r.exec(job.command);
+            ProcessBuilder process_builder = new ProcessBuilder();
+            if ( System.getProperty("os.name").startsWith("Windows") ) {
+                process_builder.command("cmd.exe", "/c", job.command);
+            }
+            else {
+                process_builder.command("sh", "-c", job.command);
+            }
+            Process p = process_builder.start();
             p.waitFor();
 
             BufferedReader buf =
