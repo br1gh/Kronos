@@ -6,6 +6,12 @@ import javax.swing.*;
 
 public class MainFrame
 {
+    /**
+     * Create a list containing strings from specified range and "*ANY*".
+     * @param  start  range start
+     * @param  stop  range end
+     * @return  list of strings from start to stop and "*ANY*"
+     */
     private static String [] make_list(int start, int stop)
     {
         String [] ret = new String [stop - start + 2];
@@ -19,7 +25,14 @@ public class MainFrame
         return ret;
     }
 
-    // Object -> String -> Integer
+    /**
+     * Extract {@link Integer} from given {@link Object},
+     * if the representation of {@link Object} as a string
+     * is equal to "*ANY*", then return null.
+     * Pipeline: Object -> String -> Integer
+     * @param  o object
+     * @return  integer
+     */
     private static Integer toDBInt(Object o)
     {
         String s = o.toString();
