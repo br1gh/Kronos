@@ -190,19 +190,13 @@ public class MainFrame
             TrayIcon tray_icon = new TrayIcon(image, "Kronos", tray_popup_menu);
             tray_icon.setImageAutoSize(true);
 
-            MenuItem hide_tray_menu_item = new MenuItem("Hide");
-            hide_tray_menu_item.addActionListener(
-                    (aE) -> main_frame.setVisible(false));
-            tray_popup_menu.add(hide_tray_menu_item);
-
-            MenuItem show_tray_menu_item = new MenuItem("Show");
-            show_tray_menu_item.addActionListener(
-                    (aE) -> main_frame.setVisible(true));
-            tray_popup_menu.add(show_tray_menu_item);
+            MenuItem toggle_visibility_tray_menu_item = new MenuItem("Hide / Show");
+            toggle_visibility_tray_menu_item.addActionListener(
+                    (aE) -> main_frame.setVisible(!main_frame.isVisible()));
+            tray_popup_menu.add(toggle_visibility_tray_menu_item);
 
             MenuItem close_tray_menu_item = new MenuItem("Close");
-            close_tray_menu_item.addActionListener(
-                    (aE) -> System.exit(0));
+            close_tray_menu_item.addActionListener((aE) -> System.exit(0));
             tray_popup_menu.add(close_tray_menu_item);
 
             try {
