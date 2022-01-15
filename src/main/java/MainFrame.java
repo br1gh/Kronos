@@ -127,10 +127,8 @@ public class MainFrame
         String[][] data_all = new String[JobService.getAll().size()][7];
 
         int i = 0;
-        for (Job j: JobService.getAll())
-        {
-            data_all[i] = new String[]
-                    {
+        for (Job j: JobService.getAll()) {
+            data_all[i] = new String[] {
                     (j.id == null ? "Any":j.id.toString()),
                     j.command,
                     (j.month == null ? "Any":j.month.toString()),
@@ -138,8 +136,8 @@ public class MainFrame
                     (j.w_day == null ? "Any":j.w_day.toString()),
                     (j.hour == null ? "Any":j.hour.toString()),
                     (j.minute == null ? "Any":j.minute.toString())
-                    };
-            i++;
+            };
+            i ++;
         }
 
         String[] column_names_all = {"Id", "Command", "Month", "Month Day", "Week Day", "Hour", "Minute"};
@@ -154,6 +152,7 @@ public class MainFrame
         scroll_pane.getViewport().setBackground(tabs_bg);
 
         all_panel.add(scroll_pane);
+
 
         // Executed jobs
 
@@ -180,6 +179,8 @@ public class MainFrame
 
         main_frame.setVisible(true);
 
+
+        // Tray icon
 
         if ( SystemTray.isSupported() ) {
             SystemTray system_tray = SystemTray.getSystemTray();
