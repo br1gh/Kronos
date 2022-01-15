@@ -1,7 +1,4 @@
 import java.awt.*;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.Statement;
 import java.util.Objects;
 import java.util.stream.IntStream;
 import javax.swing.*;
@@ -129,10 +126,8 @@ public class MainFrame
         String[][] data_all = new String[JobService.getAll().size()][7];
 
         int i = 0;
-        for (Job j: JobService.getAll())
-        {
-            data_all[i] = new String[]
-                    {
+        for (Job j: JobService.getAll()) {
+            data_all[i] = new String[] {
                     (j.id == null ? "Any":j.id.toString()),
                     j.command,
                     (j.month == null ? "Any":j.month.toString()),
@@ -140,8 +135,8 @@ public class MainFrame
                     (j.w_day == null ? "Any":j.w_day.toString()),
                     (j.hour == null ? "Any":j.hour.toString()),
                     (j.minute == null ? "Any":j.minute.toString())
-                    };
-            i++;
+            };
+            i ++;
         }
 
         String[] column_names_all = {"Id", "Command", "Month", "Month Day", "Week Day", "Hour", "Minute"};
@@ -156,6 +151,7 @@ public class MainFrame
         scroll_pane.getViewport().setBackground(tabs_bg);
 
         all_panel.add(scroll_pane);
+
 
         // Executed jobs
 
@@ -182,44 +178,8 @@ public class MainFrame
 
         main_frame.setVisible(true);
 
-        // Remove jobs
 
-        JPanel remove_jobs_panel = new JPanel();
-        remove_jobs_panel.setBackground(text_bg);
-        main_tabbed_pane.add("Remove", remove_jobs_panel);
-
-        String[] ids_of_jobs = new String[JobService.getAll().size()];
-
-        int k = 0;
-        for (Job j: JobService.getAll()){
-            ids_of_jobs[k] = (j.id == null ? "Any" : j.id.toString());
-            k++;
-        }
-
-        JComboBox all_jobs = new MainFrameComboBox(ids_of_jobs);
-        remove_jobs_panel.setLayout(new GridLayout(7, 1));
-        remove_jobs_panel.add(all_jobs);
-
-
-        MainFrameButton remove_button_remove_jobs =
-                new MainFrameButton("Remove", new Color(199,84,80));
-        remove_jobs_panel.add(remove_button_remove_jobs);
-
-        remove_button_remove_jobs.addActionListener((aE) -> {
-            Connection conn = DBConn.establishConn();
-            try {
-                Statement stmt = conn.createStatement();
-                stmt.executeUpdate("DELETE FROM jobs WHERE id = " +
-                        toDBInt(Objects.requireNonNull(all_jobs.getSelectedItem())));
-            }
-            catch ( Exception e ) {
-                System.err.println(e.getMessage());
-            }
-            finally {
-                DBConn.closeConn(conn);
-            }
-        });
-
+        // Tray icon
 
         if ( SystemTray.isSupported() ) {
             SystemTray system_tray = SystemTray.getSystemTray();
@@ -229,19 +189,13 @@ public class MainFrame
             TrayIcon tray_icon = new TrayIcon(image, "Kronos", tray_popup_menu);
             tray_icon.setImageAutoSize(true);
 
-            MenuItem hide_tray_menu_item = new MenuItem("Hide");
-            hide_tray_menu_item.addActionListener(
-                    (aE) -> main_frame.setVisible(false));
-            tray_popup_menu.add(hide_tray_menu_item);
-
-            MenuItem show_tray_menu_item = new MenuItem("Show");
-            show_tray_menu_item.addActionListener(
-                    (aE) -> main_frame.setVisible(true));
-            tray_popup_menu.add(show_tray_menu_item);
+            MenuItem toggle_visibility_tray_menu_item = new MenuItem("Hide / Show");
+            toggle_visibility_tray_menu_item.addActionListener(
+                    (aE) -> main_frame.setVisible(!main_frame.isVisible()));
+            tray_popup_menu.add(toggle_visibility_tray_menu_item);
 
             MenuItem close_tray_menu_item = new MenuItem("Close");
-            close_tray_menu_item.addActionListener(
-                    (aE) -> System.exit(0));
+            close_tray_menu_item.addActionListener((aE) -> System.exit(0));
             tray_popup_menu.add(close_tray_menu_item);
 
             try {
