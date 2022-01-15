@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.net.URL;
 import java.util.Objects;
 import java.util.stream.IntStream;
 import javax.swing.*;
@@ -182,8 +183,8 @@ public class MainFrame
 
         if ( SystemTray.isSupported() ) {
             SystemTray system_tray = SystemTray.getSystemTray();
-            // TODO: Figure out how to specify getImage path
-            Image image = Toolkit.getDefaultToolkit().getImage("");
+            Image image = Toolkit.getDefaultToolkit().getImage(
+                    MainFrame.class.getResource("images/kronos.png"));
             PopupMenu tray_popup_menu = new PopupMenu("Kronos Tray");
             TrayIcon tray_icon = new TrayIcon(image, "Kronos", tray_popup_menu);
             tray_icon.setImageAutoSize(true);
