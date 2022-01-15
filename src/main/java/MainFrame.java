@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Objects;
 import java.util.stream.IntStream;
 import javax.swing.*;
 
@@ -94,11 +95,11 @@ public class MainFrame
         add_panel.add(save_button_add_panel);
         save_button_add_panel.addActionListener((aE) -> {
             Job j = new Job(0, command_panel_field.getText(),
-                    toDBInt(month_panel_field.getSelectedItem()),
-                    toDBInt(m_day_panel_field.getSelectedItem()),
-                    toDBInt(w_day_panel_field.getSelectedItem()),
-                    toDBInt(hour_panel_field.getSelectedItem()),
-                    toDBInt(minute_panel_field.getSelectedItem()));
+                    toDBInt(Objects.requireNonNull(month_panel_field.getSelectedItem())),
+                    toDBInt(Objects.requireNonNull(m_day_panel_field.getSelectedItem())),
+                    toDBInt(Objects.requireNonNull(w_day_panel_field.getSelectedItem())),
+                    toDBInt(Objects.requireNonNull(hour_panel_field.getSelectedItem())),
+                    toDBInt(Objects.requireNonNull(minute_panel_field.getSelectedItem())));
             JobService.insert(j);
         });
 
