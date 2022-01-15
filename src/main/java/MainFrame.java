@@ -165,5 +165,38 @@ public class MainFrame
         executed_panel.add(scroll_pane_executed);
 
         main_frame.setVisible(true);
+
+
+        if ( SystemTray.isSupported() ) {
+            SystemTray system_tray = SystemTray.getSystemTray();
+            // TODO: Figure out how to specify getImage path
+            Image image = Toolkit.getDefaultToolkit().getImage("");
+            PopupMenu tray_popup_menu = new PopupMenu("Kronos Tray");
+            TrayIcon tray_icon = new TrayIcon(image, "Kronos", tray_popup_menu);
+            tray_icon.setImageAutoSize(true);
+
+            MenuItem hide_tray_menu_item = new MenuItem("Hide");
+            hide_tray_menu_item.addActionListener(
+                    (aE) -> main_frame.setVisible(false));
+            tray_popup_menu.add(hide_tray_menu_item);
+
+            MenuItem show_tray_menu_item = new MenuItem("Show");
+            show_tray_menu_item.addActionListener(
+                    (aE) -> main_frame.setVisible(true));
+            tray_popup_menu.add(show_tray_menu_item);
+
+            MenuItem close_tray_menu_item = new MenuItem("Close");
+            close_tray_menu_item.addActionListener(
+                    (aE) -> System.exit(0));
+            tray_popup_menu.add(close_tray_menu_item);
+
+            try {
+                system_tray.add(tray_icon);
+            }
+            catch ( Exception e ) {
+                System.err.println(e.getMessage());
+            }
+        }
+
     }
 }
