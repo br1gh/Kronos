@@ -62,6 +62,12 @@ public class MainFrame
         return s.equals("*ANY*") ? null : Integer.valueOf(s);
     }
 
+    // Component colors
+    private static final Color bg          = new Color(43, 43, 43);
+    private static final Color font_color  = new Color(168,182,191);
+    private static final Color tabs_bg     = new Color(60, 63, 65);
+    private static final Color text_bg     = new Color(49, 51, 53);
+
     private static java.util.List<Job> all_jobs_list;
     private static java.util.List<String[]> executed_jobs_list;
 
@@ -73,12 +79,6 @@ public class MainFrame
 
     public static void show()
     {
-        Color tabs_bg = new Color(60, 63, 65);
-        Color bg = new Color(43, 43, 43);
-        Color text_bg = new Color(49, 51, 53);
-        Color font_color = new Color(168,182,191);
-
-
         JFrame main_frame = new JFrame("Kronos");
         main_frame.setSize(550, 500);
         main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -246,12 +246,12 @@ public class MainFrame
                 // Update global private vars
                 doGlobalUpdate();
 
-
                 // Update "Remove" combo box
                 if ( main_tabbed_pane.getSelectedIndex() != 1 ) {
                     DefaultComboBoxModel combo_box_remove_job_panel_model =
                             (DefaultComboBoxModel) combo_box_remove_job_panel.getModel();
                     combo_box_remove_job_panel_model.removeAllElements();
+
                     for (Job j : all_jobs_list) {
                         combo_box_remove_job_panel_model.addElement(
                                 MessageFormat.format(
@@ -265,6 +265,7 @@ public class MainFrame
                 if ( main_tabbed_pane.getSelectedIndex() != 2 ) {
                     DefaultTableModel table_all_model = (DefaultTableModel) table_all.getModel();
                     table_all_model.setRowCount(0);
+
                     for (Job j : all_jobs_list) {
                         table_all_model.addRow(new String[]{
                                 (j.id == null ? "Any" : j.id.toString()),
@@ -276,6 +277,7 @@ public class MainFrame
                                 (j.minute == null ? "Any" : j.minute.toString())
                         });
                     }
+
                     table_all.setBounds(0, 0, 500, 500);
                     table_all.setPreferredScrollableViewportSize(table_all.getPreferredSize());
                 }
@@ -284,9 +286,11 @@ public class MainFrame
                 if ( main_tabbed_pane.getSelectedIndex() != 3 ) {
                     DefaultTableModel table_executed_model = (DefaultTableModel) table_executed.getModel();
                     table_executed_model.setRowCount(0);
+
                     for (String[] e : executed_jobs_list) {
                         table_executed_model.addRow(e);
                     }
+
                     table_executed.setBounds(0, 0, 500, 500);
                     table_executed.setPreferredScrollableViewportSize(table_executed.getPreferredSize());
                 }
