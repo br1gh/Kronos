@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.util.stream.IntStream;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import static java.util.Objects.*;
 
 
@@ -39,6 +41,18 @@ public class MainFrame
         return s.equals("*ANY*") ? null : Integer.valueOf(s);
     }
 
+    private static java.util.List<Job> all_jobs_list;
+    private static int all_jobs_list_len;
+
+    private static java.util.List<String[]> executed_jobs_list;
+
+    private static void doGlobalUpdate()
+    {
+        all_jobs_list       = JobService.getAll();
+        all_jobs_list_len   = all_jobs_list.size();
+        executed_jobs_list  = JobService.getExecuted();
+    }
+
     public static void show()
     {
         Color tabs_bg = new Color(60, 63, 65);
@@ -56,6 +70,11 @@ public class MainFrame
         main_tabbed_pane.setBackground(bg);
         main_tabbed_pane.setForeground(font_color);
         main_frame.getContentPane().add(main_tabbed_pane);
+
+
+        // Initiate global vars
+
+        doGlobalUpdate();
 
 
         // Add a Job
@@ -117,12 +136,6 @@ public class MainFrame
         });
 
 
-        // All jobs list, updated by a thread (see below)
-
-        java.util.List<Job> all_jobs_list = JobService.getAll();
-        int all_jobs_list_len = all_jobs_list.size();
-
-
         // Remove a job
 
         JPanel remove_job_panel = new JPanel();
@@ -156,27 +169,8 @@ public class MainFrame
         all_panel.setBackground(text_bg);
         main_tabbed_pane.add("All", all_panel);
 
-        String[][] data_all = new String[all_jobs_list_len][7];
-
-        int loaded_jobs_all_panel = 0;
-        for ( Job j: all_jobs_list ) {
-            data_all[loaded_jobs_all_panel] = new String[] {
-                    (j.id == null ? "Any":j.id.toString()),
-                    j.command,
-                    (j.month == null ? "Any":j.month.toString()),
-                    (j.m_day == null ? "Any":j.m_day.toString()),
-                    (j.w_day == null ? "Any":j.w_day.toString()),
-                    (j.hour == null ? "Any":j.hour.toString()),
-                    (j.minute == null ? "Any":j.minute.toString())
-            };
-            loaded_jobs_all_panel ++;
-        }
-
-        String[] column_names_all = {"Id", "Command", "Month", "Month Day", "Week Day", "Hour", "Minute"};
-
-        JTable table_all = new JTable(data_all, column_names_all);
-        table_all.setBounds(0,0,500,500);
-        table_all.setPreferredScrollableViewportSize(table_all.getPreferredSize());
+        String [] column_names_all = {"Id", "Command", "Month", "Month Day", "Week Day", "Hour", "Minute"};
+        JTable table_all = new JTable(new DefaultTableModel(column_names_all, 0));
         table_all.setBackground(bg);
         table_all.setForeground(font_color);
 
@@ -192,15 +186,8 @@ public class MainFrame
         executed_panel.setBackground(text_bg);
         main_tabbed_pane.add("Executed", executed_panel);
 
-        String[][] data_executed = new String[JobService.getExecuted().size()][6];
-
         String[] column_names_executed = {"Id", "Job Id","Command", "Date", "Exit Code", "Exit Output"};
-
-        JTable table_executed =
-                new JTable(JobService.getExecuted().toArray(data_executed), column_names_executed);
-
-        table_executed.setBounds(0,0,500,500);
-        table_executed.setPreferredScrollableViewportSize(table_executed.getPreferredSize());
+        JTable table_executed = new JTable(new DefaultTableModel(column_names_executed, 0));
         table_executed.setBackground(bg);
         table_executed.setForeground(font_color);
 
@@ -241,6 +228,52 @@ public class MainFrame
         // Show the main frame
 
         main_frame.setVisible(true);
+
+
+        // Updater thread
+
+        Thread updater = new Thread(() -> {
+            while ( true ) {
+                // Update global private vars
+                doGlobalUpdate();
+
+                // Update all Jobs table
+                DefaultTableModel table_all_model = (DefaultTableModel) table_all.getModel();
+                table_all_model.setRowCount(0);
+                for ( Job j : all_jobs_list ) {
+                    table_all_model.addRow(new String [] {
+                            (j.id     == null ? "Any" : j.id.toString()),
+                            j.command,
+                            (j.month  == null ? "Any" : j.month.toString()),
+                            (j.m_day  == null ? "Any" : j.m_day.toString()),
+                            (j.w_day  == null ? "Any" : j.w_day.toString()),
+                            (j.hour   == null ? "Any" : j.hour.toString()),
+                            (j.minute == null ? "Any" : j.minute.toString())
+                    });
+                }
+                table_all.setBounds(0,0,500,500);
+                table_all.setPreferredScrollableViewportSize(table_all.getPreferredSize());
+
+                // Update executed Jobs table
+                DefaultTableModel table_executed_model = (DefaultTableModel) table_executed.getModel();
+                table_executed_model.setRowCount(0);
+                for ( String [] e : executed_jobs_list ) {
+                    table_executed_model.addRow(e);
+                }
+                table_executed.setBounds(0,0,500,500);
+                table_executed.setPreferredScrollableViewportSize(table_executed.getPreferredSize());
+
+                try {
+                    Thread.sleep(100);
+                }
+                catch ( Exception e ) {
+                    System.out.println(e.getMessage());
+                    System.exit(1);
+                }
+            }
+        });
+
+        updater.start();
 
     }
 }
