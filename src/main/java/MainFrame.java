@@ -19,6 +19,8 @@
 
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.MessageFormat;
 import java.util.stream.IntStream;
 import javax.swing.*;
@@ -142,7 +144,7 @@ public class MainFrame
     {
         JFrame main_frame = new JFrame("Kronos");
         main_frame.setSize(550, 500);
-        main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        main_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         main_frame.getContentPane().setBackground(tabs_bg);
 
         JTabbedPane main_tabbed_pane = new JTabbedPane();
@@ -290,8 +292,22 @@ public class MainFrame
             Image image = Toolkit.getDefaultToolkit().getImage(
                     MainFrame.class.getResource("images/kronos.png"));
             PopupMenu tray_popup_menu = new PopupMenu("Kronos Tray");
+
             TrayIcon tray_icon = new TrayIcon(image, "Kronos", tray_popup_menu);
             tray_icon.setImageAutoSize(true);
+            tray_icon.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent mE)
+                {
+                    switch ( mE.getButton() ) {
+                        case 1:  // left
+                            main_frame.setVisible(!main_frame.isVisible());
+                            break;
+                        case 2:  // middle
+                            System.exit(0);
+                            break;
+                    }
+                }
+            });
 
             MenuItem toggle_visibility_tray_menu_item = new MenuItem("Hide / Show");
             toggle_visibility_tray_menu_item.addActionListener(
