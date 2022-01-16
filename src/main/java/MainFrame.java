@@ -19,6 +19,7 @@
 
 
 import java.awt.*;
+import java.text.MessageFormat;
 import java.util.stream.IntStream;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -62,14 +63,11 @@ public class MainFrame
     }
 
     private static java.util.List<Job> all_jobs_list;
-    private static int all_jobs_list_len;
-
     private static java.util.List<String[]> executed_jobs_list;
 
     private static void doGlobalUpdate()
     {
         all_jobs_list       = JobService.getAll();
-        all_jobs_list_len   = all_jobs_list.size();
         executed_jobs_list  = JobService.getExecuted();
     }
 
@@ -111,23 +109,23 @@ public class MainFrame
         add_panel.add(command_panel_field);
 
         add_panel.add(new MainFrameText("Month: "));
-        JComboBox month_panel_field = new MainFrameComboBox(make_list(1, 12));
+        MainFrameComboBox month_panel_field = new MainFrameComboBox(make_list(1, 12));
         add_panel.add(month_panel_field);
 
         add_panel.add(new MainFrameText("Month Day: "));
-        JComboBox m_day_panel_field = new MainFrameComboBox(make_list(1, 31));
+        MainFrameComboBox m_day_panel_field = new MainFrameComboBox(make_list(1, 31));
         add_panel.add(m_day_panel_field);
 
         add_panel.add(new MainFrameText("Week Day: "));
-        JComboBox w_day_panel_field = new MainFrameComboBox(make_list(1, 7));
+        MainFrameComboBox w_day_panel_field = new MainFrameComboBox(make_list(1, 7));
         add_panel.add(w_day_panel_field);
 
         add_panel.add(new MainFrameText("Hour: "));
-        JComboBox hour_panel_field = new MainFrameComboBox(make_list(0, 23));
+        MainFrameComboBox hour_panel_field = new MainFrameComboBox(make_list(0, 23));
         add_panel.add(hour_panel_field);
 
         add_panel.add(new MainFrameText("Minute: "));
-        JComboBox minute_panel_field = new MainFrameComboBox(make_list(0, 59));
+        MainFrameComboBox minute_panel_field = new MainFrameComboBox(make_list(0, 59));
         add_panel.add(minute_panel_field);
 
         MainFrameButton reset_button_add_panel =
@@ -161,26 +159,17 @@ public class MainFrame
         JPanel remove_job_panel = new JPanel();
         remove_job_panel.setBackground(text_bg);
         main_tabbed_pane.add("Remove", remove_job_panel);
-
-        String [] ids_of_jobs = new String[all_jobs_list_len];
-
-        int loaded_jobs_remove_job_panel = 0;
-        for ( Job j : all_jobs_list ) {
-            ids_of_jobs[loaded_jobs_remove_job_panel] = (j.id == null ? "Any" : j.id.toString());
-            loaded_jobs_remove_job_panel ++;
-        }
-
-        JComboBox all_jobs = new MainFrameComboBox(ids_of_jobs);
         remove_job_panel.setLayout(new GridLayout(7, 1));
-        remove_job_panel.add(all_jobs);
+
+        MainFrameComboBox combo_box_remove_job_panel = new MainFrameComboBox(new DefaultComboBoxModel());
+        remove_job_panel.add(combo_box_remove_job_panel);
 
         MainFrameButton remove_button_remove_jobs =
                 new MainFrameButton("Remove", new Color(199,84,80));
         remove_job_panel.add(remove_button_remove_jobs);
 
         remove_button_remove_jobs.addActionListener(
-                (aE) -> JobService.delete(Integer.parseInt(requireNonNull(
-                        all_jobs.getSelectedItem()).toString())));
+                (aE) -> JobService.delete(combo_box_remove_job_panel.getSelectedIndex() + 1));
 
 
         // All Jobs
@@ -256,6 +245,19 @@ public class MainFrame
             while ( true ) {
                 // Update global private vars
                 doGlobalUpdate();
+
+                // Update "Remove" combo box
+                DefaultComboBoxModel combo_box_remove_job_panel_model =
+                        (DefaultComboBoxModel) combo_box_remove_job_panel.getModel();
+                combo_box_remove_job_panel_model.removeAllElements();
+                for ( Job j : all_jobs_list ) {
+                    combo_box_remove_job_panel_model.addElement(
+                            MessageFormat.format(
+                                    "Job {0}: \"{1}\" Runs: {2}/{3}/{4} {5}:{6}",
+                                    j.id, j.command,
+                                    j.month, j.m_day, j.w_day, j.hour, j.minute));
+                }
+
 
                 // Update all Jobs table
                 DefaultTableModel table_all_model = (DefaultTableModel) table_all.getModel();

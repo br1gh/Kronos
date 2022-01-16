@@ -30,4 +30,10 @@ public class MainFrameComboBox extends JComboBox
         this.setBackground(new Color(43, 43, 43));
         this.setForeground(new Color(168,182,191));
     }
+
+    public MainFrameComboBox(DefaultComboBoxModel default_combo_box_model)
+    {
+        this.setBackground(new Color(43, 43, 43));
+        this.setForeground(new Color(168,182,191));
+    }
 }
