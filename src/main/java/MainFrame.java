@@ -270,10 +270,10 @@ public class MainFrame
                         table_all_model.addRow(new String[]{
                                 (j.id == null ? "Any" : j.id.toString()),
                                 j.command,
-                                (j.month == null ? "Any" : j.month.toString()),
-                                (j.m_day == null ? "Any" : j.m_day.toString()),
-                                (j.w_day == null ? "Any" : j.w_day.toString()),
-                                (j.hour == null ? "Any" : j.hour.toString()),
+                                (j.month  == null ? "Any" : j.month.toString()),
+                                (j.m_day  == null ? "Any" : j.m_day.toString()),
+                                (j.w_day  == null ? "Any" : j.w_day.toString()),
+                                (j.hour   == null ? "Any" : j.hour.toString()),
                                 (j.minute == null ? "Any" : j.minute.toString())
                         });
                     }
