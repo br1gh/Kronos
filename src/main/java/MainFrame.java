@@ -117,27 +117,33 @@ public class MainFrame
         });
 
 
+        // All jobs list, updated by a thread (see below)
+
+        java.util.List<Job> all_jobs_list = JobService.getAll();
+        int all_jobs_list_len = all_jobs_list.size();
+
+
         // Remove a job
 
-        JPanel remove_jobs_panel = new JPanel();
-        remove_jobs_panel.setBackground(text_bg);
-        main_tabbed_pane.add("Remove", remove_jobs_panel);
+        JPanel remove_job_panel = new JPanel();
+        remove_job_panel.setBackground(text_bg);
+        main_tabbed_pane.add("Remove", remove_job_panel);
 
-        String[] ids_of_jobs = new String[JobService.getAll().size()];
+        String [] ids_of_jobs = new String[all_jobs_list_len];
 
-        int k = 0;
-        for ( Job j: JobService.getAll() ) {
-            ids_of_jobs[k] = (j.id == null ? "Any" : j.id.toString());
-            k ++;
+        int loaded_jobs_remove_job_panel = 0;
+        for ( Job j : all_jobs_list ) {
+            ids_of_jobs[loaded_jobs_remove_job_panel] = (j.id == null ? "Any" : j.id.toString());
+            loaded_jobs_remove_job_panel ++;
         }
 
         JComboBox all_jobs = new MainFrameComboBox(ids_of_jobs);
-        remove_jobs_panel.setLayout(new GridLayout(7, 1));
-        remove_jobs_panel.add(all_jobs);
+        remove_job_panel.setLayout(new GridLayout(7, 1));
+        remove_job_panel.add(all_jobs);
 
         MainFrameButton remove_button_remove_jobs =
                 new MainFrameButton("Remove", new Color(199,84,80));
-        remove_jobs_panel.add(remove_button_remove_jobs);
+        remove_job_panel.add(remove_button_remove_jobs);
 
         remove_button_remove_jobs.addActionListener((aE) -> {
             JobService.delete(Integer.parseInt(
@@ -151,11 +157,11 @@ public class MainFrame
         all_panel.setBackground(text_bg);
         main_tabbed_pane.add("All", all_panel);
 
-        String[][] data_all = new String[JobService.getAll().size()][7];
+        String[][] data_all = new String[all_jobs_list_len][7];
 
-        int i = 0;
-        for (Job j: JobService.getAll()) {
-            data_all[i] = new String[] {
+        int loaded_jobs_all_panel = 0;
+        for ( Job j: all_jobs_list ) {
+            data_all[loaded_jobs_all_panel] = new String[] {
                     (j.id == null ? "Any":j.id.toString()),
                     j.command,
                     (j.month == null ? "Any":j.month.toString()),
@@ -164,7 +170,7 @@ public class MainFrame
                     (j.hour == null ? "Any":j.hour.toString()),
                     (j.minute == null ? "Any":j.minute.toString())
             };
-            i ++;
+            loaded_jobs_all_panel ++;
         }
 
         String[] column_names_all = {"Id", "Command", "Month", "Month Day", "Week Day", "Hour", "Minute"};
