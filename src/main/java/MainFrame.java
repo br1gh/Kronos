@@ -237,6 +237,8 @@ public class MainFrame
         remove_button_remove_jobs.addActionListener((aE) -> {
             Job j = all_jobs_list.get(combo_box_remove_job_panel.getSelectedIndex());
             JobService.delete(j.id);
+            globalUpdate();
+            updateComboBoxRemoveJobPanel();
         });
 
 
