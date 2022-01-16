@@ -246,44 +246,50 @@ public class MainFrame
                 // Update global private vars
                 doGlobalUpdate();
 
-                // Update "Remove" combo box
-                DefaultComboBoxModel combo_box_remove_job_panel_model =
-                        (DefaultComboBoxModel) combo_box_remove_job_panel.getModel();
-                combo_box_remove_job_panel_model.removeAllElements();
-                for ( Job j : all_jobs_list ) {
-                    combo_box_remove_job_panel_model.addElement(
-                            MessageFormat.format(
-                                    "Job {0}: \"{1}\" Runs: {2}/{3}/{4} {5}:{6}",
-                                    j.id, j.command,
-                                    j.month, j.m_day, j.w_day, j.hour, j.minute));
-                }
 
+                // Update "Remove" combo box
+                if ( main_tabbed_pane.getSelectedIndex() != 1 ) {
+                    DefaultComboBoxModel combo_box_remove_job_panel_model =
+                            (DefaultComboBoxModel) combo_box_remove_job_panel.getModel();
+                    combo_box_remove_job_panel_model.removeAllElements();
+                    for (Job j : all_jobs_list) {
+                        combo_box_remove_job_panel_model.addElement(
+                                MessageFormat.format(
+                                        "Job {0}: \"{1}\" Runs: {2}/{3}/{4} {5}:{6}",
+                                        j.id, j.command,
+                                        j.month, j.m_day, j.w_day, j.hour, j.minute));
+                    }
+                }
 
                 // Update all Jobs table
-                DefaultTableModel table_all_model = (DefaultTableModel) table_all.getModel();
-                table_all_model.setRowCount(0);
-                for ( Job j : all_jobs_list ) {
-                    table_all_model.addRow(new String [] {
-                            (j.id     == null ? "Any" : j.id.toString()),
-                            j.command,
-                            (j.month  == null ? "Any" : j.month.toString()),
-                            (j.m_day  == null ? "Any" : j.m_day.toString()),
-                            (j.w_day  == null ? "Any" : j.w_day.toString()),
-                            (j.hour   == null ? "Any" : j.hour.toString()),
-                            (j.minute == null ? "Any" : j.minute.toString())
-                    });
+                if ( main_tabbed_pane.getSelectedIndex() != 2 ) {
+                    DefaultTableModel table_all_model = (DefaultTableModel) table_all.getModel();
+                    table_all_model.setRowCount(0);
+                    for (Job j : all_jobs_list) {
+                        table_all_model.addRow(new String[]{
+                                (j.id == null ? "Any" : j.id.toString()),
+                                j.command,
+                                (j.month == null ? "Any" : j.month.toString()),
+                                (j.m_day == null ? "Any" : j.m_day.toString()),
+                                (j.w_day == null ? "Any" : j.w_day.toString()),
+                                (j.hour == null ? "Any" : j.hour.toString()),
+                                (j.minute == null ? "Any" : j.minute.toString())
+                        });
+                    }
+                    table_all.setBounds(0, 0, 500, 500);
+                    table_all.setPreferredScrollableViewportSize(table_all.getPreferredSize());
                 }
-                table_all.setBounds(0,0,500,500);
-                table_all.setPreferredScrollableViewportSize(table_all.getPreferredSize());
 
                 // Update executed Jobs table
-                DefaultTableModel table_executed_model = (DefaultTableModel) table_executed.getModel();
-                table_executed_model.setRowCount(0);
-                for ( String [] e : executed_jobs_list ) {
-                    table_executed_model.addRow(e);
+                if ( main_tabbed_pane.getSelectedIndex() != 3 ) {
+                    DefaultTableModel table_executed_model = (DefaultTableModel) table_executed.getModel();
+                    table_executed_model.setRowCount(0);
+                    for (String[] e : executed_jobs_list) {
+                        table_executed_model.addRow(e);
+                    }
+                    table_executed.setBounds(0, 0, 500, 500);
+                    table_executed.setPreferredScrollableViewportSize(table_executed.getPreferredSize());
                 }
-                table_executed.setBounds(0,0,500,500);
-                table_executed.setPreferredScrollableViewportSize(table_executed.getPreferredSize());
 
                 try {
                     Thread.sleep(100);
