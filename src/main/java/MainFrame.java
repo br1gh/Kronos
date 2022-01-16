@@ -234,8 +234,10 @@ public class MainFrame
                 new MainFrameButton("Remove", new Color(199,84,80));
         remove_job_panel.add(remove_button_remove_jobs);
 
-        remove_button_remove_jobs.addActionListener(
-                (aE) -> JobService.delete(combo_box_remove_job_panel.getSelectedIndex() + 1));
+        remove_button_remove_jobs.addActionListener((aE) -> {
+            Job j = all_jobs_list.get(combo_box_remove_job_panel.getSelectedIndex());
+            JobService.delete(j.id);
+        });
 
 
         // All Jobs
