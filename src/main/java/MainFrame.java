@@ -1,9 +1,8 @@
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.util.Objects;
 import java.util.stream.IntStream;
 import javax.swing.*;
+import static java.util.Objects.*;
+
 
 public class MainFrame
 {
@@ -109,12 +108,40 @@ public class MainFrame
         add_panel.add(save_button_add_panel);
         save_button_add_panel.addActionListener((aE) -> {
             Job j = new Job(0, command_panel_field.getText(),
-                    toDBInt(Objects.requireNonNull(month_panel_field.getSelectedItem())),
-                    toDBInt(Objects.requireNonNull(m_day_panel_field.getSelectedItem())),
-                    toDBInt(Objects.requireNonNull(w_day_panel_field.getSelectedItem())),
-                    toDBInt(Objects.requireNonNull(hour_panel_field.getSelectedItem())),
-                    toDBInt(Objects.requireNonNull(minute_panel_field.getSelectedItem())));
+                    toDBInt(requireNonNull(month_panel_field.getSelectedItem())),
+                    toDBInt(requireNonNull(m_day_panel_field.getSelectedItem())),
+                    toDBInt(requireNonNull(w_day_panel_field.getSelectedItem())),
+                    toDBInt(requireNonNull(hour_panel_field.getSelectedItem())),
+                    toDBInt(requireNonNull(minute_panel_field.getSelectedItem())));
             JobService.insert(j);
+        });
+
+
+        // Remove a job
+
+        JPanel remove_jobs_panel = new JPanel();
+        remove_jobs_panel.setBackground(text_bg);
+        main_tabbed_pane.add("Remove", remove_jobs_panel);
+
+        String[] ids_of_jobs = new String[JobService.getAll().size()];
+
+        int k = 0;
+        for ( Job j: JobService.getAll() ) {
+            ids_of_jobs[k] = (j.id == null ? "Any" : j.id.toString());
+            k ++;
+        }
+
+        JComboBox all_jobs = new MainFrameComboBox(ids_of_jobs);
+        remove_jobs_panel.setLayout(new GridLayout(7, 1));
+        remove_jobs_panel.add(all_jobs);
+
+        MainFrameButton remove_button_remove_jobs =
+                new MainFrameButton("Remove", new Color(199,84,80));
+        remove_jobs_panel.add(remove_button_remove_jobs);
+
+        remove_button_remove_jobs.addActionListener((aE) -> {
+            JobService.delete(Integer.parseInt(
+                    requireNonNull(all_jobs.getSelectedItem()).toString()));
         });
 
 
@@ -177,46 +204,6 @@ public class MainFrame
 
         executed_panel.add(scroll_pane_executed);
 
-        main_frame.setVisible(true);
-
-        // Remove jobs
-
-        JPanel remove_jobs_panel = new JPanel();
-        remove_jobs_panel.setBackground(text_bg);
-        main_tabbed_pane.add("Remove", remove_jobs_panel);
-
-        String[] ids_of_jobs = new String[JobService.getAll().size()];
-
-        int k = 0;
-        for (Job j: JobService.getAll()){
-            ids_of_jobs[k] = (j.id == null ? "Any" : j.id.toString());
-            k++;
-        }
-
-        JComboBox all_jobs = new MainFrameComboBox(ids_of_jobs);
-        remove_jobs_panel.setLayout(new GridLayout(7, 1));
-        remove_jobs_panel.add(all_jobs);
-
-
-        MainFrameButton remove_button_remove_jobs =
-                new MainFrameButton("Remove", new Color(199,84,80));
-        remove_jobs_panel.add(remove_button_remove_jobs);
-
-        remove_button_remove_jobs.addActionListener((aE) -> {
-            Connection conn = DBConn.establishConn();
-            try {
-                Statement stmt = conn.createStatement();
-                stmt.executeUpdate("DELETE FROM jobs WHERE id = " +
-                        toDBInt(Objects.requireNonNull(all_jobs.getSelectedItem())));
-            }
-            catch ( Exception e ) {
-                System.err.println(e.getMessage());
-            }
-            finally {
-                DBConn.closeConn(conn);
-            }
-        });
-
 
         // Tray icon
 
@@ -244,6 +231,11 @@ public class MainFrame
                 System.err.println(e.getMessage());
             }
         }
+
+
+        // Show the main frame
+
+        main_frame.setVisible(true);
 
     }
 }

@@ -38,6 +38,24 @@ public class JobService
         }
     }
 
+    public static void delete(int id)
+    {
+        Connection conn = DBConn.establishConn();
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("DELETE FROM jobs WHERE id = " + id + ";");
+            System.out.println("------------------------------");
+            System.out.println("Deleted a job of id = " + id);
+            System.out.println("------------------------------");
+        }
+        catch ( Exception e ) {
+            System.err.println(e.getMessage());
+        }
+        finally {
+            DBConn.closeConn(conn);
+        }
+    }
+
     /**
      * Get nullable integer from {@link ResultSet}.
      * @param  rs  {@link ResultSet} from which result will e extracted
