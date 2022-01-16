@@ -145,10 +145,9 @@ public class MainFrame
                 new MainFrameButton("Remove", new Color(199,84,80));
         remove_job_panel.add(remove_button_remove_jobs);
 
-        remove_button_remove_jobs.addActionListener((aE) -> {
-            JobService.delete(Integer.parseInt(
-                    requireNonNull(all_jobs.getSelectedItem()).toString()));
-        });
+        remove_button_remove_jobs.addActionListener(
+                (aE) -> JobService.delete(Integer.parseInt(requireNonNull(
+                        all_jobs.getSelectedItem()).toString())));
 
 
         // All Jobs
