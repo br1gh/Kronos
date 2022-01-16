@@ -13,11 +13,14 @@ JDBC
 DB placed in:
 - Linux: ~/.cache/kronos/db.sqlite
 - Windows: %%APPDATA%%/kronos/db.sqlite
-- else: in the basedir of launched program
 
 
 ## Examples
 
+### Windows
 - `slmngr /rearm`
-- show rock-face gif
 - system shutdown
+
+### Linux
+- apt update
+- echo works >> /tmp/works.txt
