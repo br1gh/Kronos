@@ -54,7 +54,7 @@ public class MainFrame
      * Extract {@link Integer} from given {@link Object},
      * if the representation of {@link Object} as a string
      * is equal to "*ANY*", then return null.
-     * Pipeline: Object -> String -> Integer
+     * Pipeline: Object to String to Integer
      * @param  o object
      * @return  integer
      */
