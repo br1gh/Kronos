@@ -1,4 +1,4 @@
-#![Alt text](src/main/resources/images/kronos.png?raw=true "Title") Kronos
+##![Alt text](src/main/resources/images/kronos.png?raw=true "Title") Kronos
 
 ## About
 
